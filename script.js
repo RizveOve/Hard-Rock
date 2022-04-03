@@ -24,7 +24,11 @@ const displaySongs= (songs)=>{
         <div class="col-md-9">
             <h3 class="lyrics-name">${songs[i].title}</h3>
             <p class="author lead">by ${songs[i].artist.name}</p>
+            <audio controls>
+                <source src="${songs[i].preview}" type="audio/mpeg">
+            </audio>
         </div>
+        
         <div class="col-md-3 text-md-right text-center">
             <button onclick='getLyric("${songs[i].title}", "${songs[i].artist.name}")' class="btn btn-success">Get Lyrics</button>
         </div>
@@ -37,9 +41,15 @@ const getLyric= (song, artist)=> {
     
     const url= `https://api.lyrics.ovh/v1/${artist}/${song}`
 
-        fetch(url)
-        .then(res=> res.json())
-        .then(data=> displayLyrics(data))
+        
+        try {
+            fetch(url)
+            .then(res=> res.json())
+            .then(data=> displayLyrics(data))
+          }//end try
+          catch (e) {
+              console.log(2000)
+          }//end catch
    
 }
 
